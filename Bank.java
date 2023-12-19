@@ -8,6 +8,10 @@ class Bank{
 		int[] trans = new int[100]; 
 		sc = new Scanner(System.in);
 	}
+	Bank(int balance){
+		this();
+		this.balance = balance;	
+	}
 
 	void withdraw(){
 		System.out.println("***** WITHDRAW *****");
@@ -18,6 +22,10 @@ class Bank{
 		} else if(amount > balance){
 			System.out.println("Entered amount is greater than Balance");
 		}
+		else{
+			System.out.println("Dispensing Cash!\n\n");
+			balance-=amount;
+			}
 	}
 
 	void deposit(){
@@ -42,10 +50,35 @@ class Bank{
 		if(notesCount > 200){
 			System.out.println("Max 200 notes can only be deposit");
 		}
+		int enteredAmount = fh * 500 + th * 200 + oh * 100 + fifty * 50 + ten * 10;
+		System.out.println("Entered Amount: " + enteredAmount);
+		balance+=enteredAmount;
+		System.out.println("\nDeposit the Cash\n\nDone!\nSuccessfully deposited Rs. " + enteredAmount);
+		
+	}
+
+	void checkBalance(){
+		System.out.println("\nBalance is: " + balance);
 	}
 		
 	public static void main(String args[]){
-		new Bank().withdraw();
-		new Bank().deposit();
+		Boolean exit = false;
+		Bank bank = new Bank();
+		while(!exit){
+			System.out.print("\n\nWelcome! \nOptions: \n1. Withdraw\n2. Deposit\n3. Balance Enquiry\n0. Exit\nEnter the option: ");
+			int option = new Scanner(System.in).nextInt();
+			switch(option){
+				case 0: exit = true;
+					System.out.println("Thank You for using our Bank ATM! \nHave a great day");
+					break;
+				case 1: bank.withdraw();
+					break;
+				case 2: bank.deposit();	
+					break;
+				case 3: bank.checkBalance();
+					break;
+				default: System.out.println("Enter valid Option!");
+			}
+		}
 	}
 }
